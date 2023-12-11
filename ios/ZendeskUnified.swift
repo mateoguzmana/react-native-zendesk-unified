@@ -11,6 +11,22 @@ class ZendeskUnified: NSObject {
     resolve("Module compiling and working")
   }
 
+  @objc(initialize:withClientId:withZendeskUrl:withAccountKey:withResolver:withRejecter:)
+  func initialize(
+    appId: String, 
+    clientId: String,
+    zendeskUrl: String,
+    accountKey: String?,
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    // print all the arguments
+    print("appId: \(appId)")
+    print("clientId: \(clientId)")
+    print("zendeskUrl: \(zendeskUrl)")
+    print("accountKey: \(accountKey)")
+  }
+
     //   Function("healthCheck") {
     //   return "Module compiling and working"
     // }

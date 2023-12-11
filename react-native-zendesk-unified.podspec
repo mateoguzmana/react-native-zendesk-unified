@@ -20,7 +20,9 @@ Pod::Spec.new do |s|
   # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
   if respond_to?(:install_modules_dependencies, true)
     install_modules_dependencies(s)
-  else
+  else 
+  # s.dependency 'ZendeskSupportSDK', '~> 8.0.0'
+  # s.dependency 'ZendeskChatSDK'
   s.dependency "React-Core"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
