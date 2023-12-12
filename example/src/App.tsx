@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Config from 'react-native-config';
 import { ZendeskProvider, useZendesk } from 'react-native-zendesk-unified';
 import type { ZendeskConfig } from 'react-native-zendesk-unified';
 
 import { Button } from './components/Button';
 
 export const zendeskConfig: ZendeskConfig = {
-  appId: process.env.EXPO_PUBLIC_ZENDESK_APP_ID,
-  clientId: process.env.EXPO_PUBLIC_ZENDESK_CLIENT_ID,
-  zendeskUrl: process.env.EXPO_PUBLIC_ZENDESK_URL,
-  accountKey: process.env.EXPO_PUBLIC_ZENDESK_ACCOUNT_KEY,
+  appId: Config.ZENDESK_APP_ID,
+  clientId: Config.ZENDESK_CLIENT_ID,
+  zendeskUrl: Config.ZENDESK_URL,
+  accountKey: Config.ZENDESK_ACCOUNT_KEY,
 };
 
 // If you want to use the class directly, you can do it like this instead of using the hook:
