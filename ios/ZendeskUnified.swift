@@ -97,24 +97,33 @@ class ZendeskUnified: NSObject {
     openArticle(articleId: articleId)
   }
 
-  //   AsyncFunction("setHelpCenterLocaleOverride") { (
-  //     locale: String
-  //   ) in
-  //     setHelpCenterLocaleOverride(locale: locale)
-  //   }
+  @objc(setHelpCenterLocaleOverride:withResolver:withRejecter:)
+  func setHelpCenterLocaleOverride(
+    locale: String,
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    setHelpCenterLocaleOverride(locale: locale)
+  }
 
-  //   AsyncFunction("changeTheme") { (
-  //     color: String
-  //   ) in
-  //     changeTheme(color: color)
-  //   }
+  @objc(changeTheme:withResolver:withRejecter:)
+  func changeTheme(
+    color: String,
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    changeTheme(color: color)
+  }
 
-  //   // Chat methods
-  //   AsyncFunction("initializeChat") { (
-  //     accountKey: String
-  //   ) in
-  //     initializeChat(accountKey: accountKey)
-  //   }
+  // Chat methods
+  @objc(initializeChat:withResolver:withRejecter:)
+  func initializeChat(
+    accountKey: String,
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    initializeChat(accountKey: accountKey)
+  }
 
   //   AsyncFunction("startChat") { (
   //     botName: String?,
@@ -136,10 +145,15 @@ class ZendeskUnified: NSObject {
   //     )
   //   }
 
-  //   AsyncFunction("startAnswerBot") {
-  //     startAnswerBot()
-  //   }
-  // }
+  @objc(startAnswerBot:withRejecter:)
+  func startAnswerBot(
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    startAnswerBot()
+  }
+
+  // private methods
 
   private func initializeZendesk(
     appId: String,
