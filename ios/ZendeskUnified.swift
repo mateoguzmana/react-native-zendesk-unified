@@ -125,6 +125,29 @@ class ZendeskUnified: NSObject {
     initializeChat(accountKey: accountKey)
   }
 
+  // @objc(startChat:withMultilineResponseOptionsEnabled:withAgentAvailabilityEnabled:withTranscriptEnabled:withOfflineFormsEnabled:withPreChatFormEnabled:withPreChatFormOptions:withResolver:withRejecter:)
+  // func startChat(
+  //   botName: String?,
+  //   multilineResponseOptionsEnabled: Bool?,
+  //   agentAvailabilityEnabled: Bool?,
+  //   transcriptEnabled: Bool?,
+  //   offlineFormsEnabled: Bool?,
+  //   preChatFormEnabled: Bool?,
+  //   resolve: RCTPromiseResolveBlock,
+  //   reject: RCTPromiseRejectBlock
+  // ) -> Void {
+  //   startChat(
+  //     botName: botName,
+  //     multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
+  //     agentAvailabilityEnabled: agentAvailabilityEnabled,
+  //     transcriptEnabled: transcriptEnabled,
+  //     offlineFormsEnabled: offlineFormsEnabled,
+  //     preChatFormEnabled: preChatFormEnabled,
+  //     preChatFormOptions: preChatFormOptions
+  //   )
+  // }
+
+
   //   AsyncFunction("startChat") { (
   //     botName: String?,
   //     multilineResponseOptionsEnabled: Bool?,
