@@ -21,7 +21,6 @@ export function multiply(a: number, b: number): Promise<number> {
 
 export class Zendesk {
   constructor(config: ZendeskConfig) {
-    console.log('Zendesk constructor');
     ZendeskUnified.initialize(
       config?.appId,
       config?.clientId,

@@ -4,6 +4,22 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
+import android.content.Intent
+import android.util.Log
+import java.util.Locale
+import zendesk.chat.Chat
+import zendesk.chat.ChatEngine
+import zendesk.chat.ChatConfiguration
+import zendesk.chat.PreChatFormFieldStatus
+import zendesk.core.AnonymousIdentity
+import zendesk.core.JwtIdentity
+import zendesk.core.Zendesk
+import zendesk.support.Support
+import zendesk.support.guide.HelpCenterActivity
+import zendesk.support.guide.ViewArticleActivity
+import zendesk.support.request.RequestActivity
+import zendesk.support.requestlist.RequestListActivity
+import zendesk.classic.messaging.MessagingActivity
 
 class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -12,33 +28,38 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     return NAME
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  fun multiply(a: Double, b: Double, promise: Promise) {
-    promise.resolve(a * b)
-  }
-
   companion object {
     const val NAME = "ZendeskUnified"
   }
 
-  // @TODO: create signatures for all functions in order to migrate from Expo setup to bare React Native setup
-//   AsyncFunction("initialize") {
-//     appId: String,
-//     clientId: String,
-//     zendeskUrl: String,
-//     accountKey: String? ->
-//   initializeZendesk(appId, clientId, zendeskUrl)
+  @ReactMethod
+  fun healthCheck(promise: Promise) {
+    promise.resolve("Module compiling and working")
+  }
 
-//   if (accountKey != null) {
-//     initializeChat(accountKey)
-//   }
-// }
+  @ReactMethod
+  fun initialize(
+    appId: String,
+    clientId: String,
+    zendeskUrl: String,
+    accountKey: String?,
+    promise: Promise
+  ) {
+    initializeZendesk(appId, clientId, zendeskUrl)
 
-// AsyncFunction("setAnonymousIdentity") { email: String?, name: String? ->
-//   setAnonymousIdentity(email, name)
-// }
+    // if (accountKey != null) {
+    //   initializeChat(accountKey)
+    // }
+  }
+
+  @ReactMethod
+  fun setAnonymousIdentity(
+    email: String?,
+    name: String?,
+    promise: Promise
+  ) {
+    setAnonymousIdentity(email, name)
+  }
 
 // AsyncFunction("setIdentity") { jwt: String -> setIdentity(jwt) }
 
@@ -87,31 +108,28 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 // }
 // }
 
-// private val context
-// get() = requireNotNull(appContext.reactContext) { "React Application Context is null" }
+  private fun initializeZendesk(appId: String, clientId: String, zendeskUrl: String) {
+    Zendesk.INSTANCE.init(getReactApplicationContext(), zendeskUrl, appId, clientId)
+    Support.INSTANCE.init(Zendesk.INSTANCE)
+  }
 
-// private fun initializeZendesk(appId: String, clientId: String, zendeskUrl: String) {
-// Zendesk.INSTANCE.init(context, zendeskUrl, appId, clientId)
-// Support.INSTANCE.init(Zendesk.INSTANCE)
-// }
+  private fun setAnonymousIdentity(email: String?, name: String?) {
+    val builder = AnonymousIdentity.Builder()
 
-// private fun setAnonymousIdentity(email: String?, name: String?) {
-// val builder = AnonymousIdentity.Builder()
+    if (email != null) {
+      builder.withEmailIdentifier(email)
+    }
 
-// if (email != null) {
-//   builder.withEmailIdentifier(email)
-// }
+    if (name != null) {
+      builder.withNameIdentifier(name)
+    }
 
-// if (name != null) {
-//   builder.withNameIdentifier(name)
-// }
+    Zendesk.INSTANCE.setIdentity(builder.build())
+  }
 
-// Zendesk.INSTANCE.setIdentity(builder.build())
-// }
-
-// private fun setIdentity(jwt: String) {
-// Zendesk.INSTANCE.setIdentity(JwtIdentity(jwt))
-// }
+  private fun setIdentity(jwt: String) {
+    Zendesk.INSTANCE.setIdentity(JwtIdentity(jwt))
+  }
 
 // private fun openHelpCenter(labels: List<String>, groupType: String?, groupIds: List<Long>) {
 // val helpCenterConfig = HelpCenterActivity.builder()
