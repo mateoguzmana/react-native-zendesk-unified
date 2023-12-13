@@ -50,9 +50,9 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
   ) {
     initializeZendesk(appId, clientId, zendeskUrl)
 
-    // if (accountKey != null) {
-    //   initializeChat(accountKey)
-    // }
+    if (accountKey != null) {
+      initializeChat(accountKey)
+    }
   }
 
   @ReactMethod
@@ -96,45 +96,97 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     )
   }
 
-// AsyncFunction("openTicket") { ticketId: String -> openTicket(ticketId) }
+  @ReactMethod
+  fun openTicket(
+    ticketId: String,
+    promise: Promise
+  ) {
+    openTicket(ticketId)
+  }
 
-// AsyncFunction("openNewTicket") { subject: String?, tags: List<String>? ->
-//   openNewTicket(subject, tags)
-// }
+  @ReactMethod
+  fun openNewTicket(
+    subject: String?,
+    tags: ReadableArray?,
+    promise: Promise
+  ) {
+    val convertedTags: MutableList<String> = mutableListOf()
+    tags?.toArrayList()?.forEach {
+      if (it is String) convertedTags.add(it)
+    }
 
-// AsyncFunction("listTickets") { listTickets() }
+    openNewTicket(subject, convertedTags)
+  }
 
-// AsyncFunction("openArticle") { articleId: Long -> openArticle(articleId) }
+  @ReactMethod
+  fun listTickets(
+    promise: Promise
+  ) {
+    listTickets()
+  }
 
-// AsyncFunction("setHelpCenterLocaleOverride") { locale: String ->
-//   setHelpCenterLocaleOverride(locale)
-// }
+  @ReactMethod
+  fun openArticle(
+    articleId: Long,
+    promise: Promise
+  ) {
+    openArticle(articleId)
+  }
 
-// AsyncFunction("changeTheme") { color: String ->
-//   Log.d("ExpoZendesk", "changeTheme is not supported on Android.")
-// }
+  @ReactMethod
+  fun setHelpCenterLocaleOverride(
+    locale: String,
+    promise: Promise
+  ) {
+    setHelpCenterLocaleOverride(locale)
+  }
 
-// AsyncFunction("initializeChat") { accountKey: String -> initializeChat(accountKey) }
+  @ReactMethod
+  fun changeTheme(
+    color: String,
+    promise: Promise
+  ) {
+    Log.d("ZendeskUnifiedLogger", "changeTheme is not supported on Android.")
+  }
 
-// AsyncFunction("startChat") {
-//   botName: String?,
-//   multilineResponseOptionsEnabled: Boolean?,
-//   agentAvailabilityEnabled: Boolean?,
-//   transcriptEnabled: Boolean?,
-//   offlineFormsEnabled: Boolean?,
-//   preChatFormEnabled: Boolean?,
-//   preChatFormOptions: Map<String, String>? ->
-//   startChat(
-//     botName,
-//     multilineResponseOptionsEnabled,
-//     agentAvailabilityEnabled,
-//     transcriptEnabled,
-//     offlineFormsEnabled,
-//     preChatFormEnabled,
-//     preChatFormOptions
-//   )
-// }
-// }
+  @ReactMethod
+  fun initializeChat(
+    accountKey: String,
+    promise: Promise
+  ) {
+    initializeChat(accountKey)
+  }
+
+  @ReactMethod
+  fun startChat(
+    botName: String?,
+    multilineResponseOptionsEnabled: Boolean?,
+    agentAvailabilityEnabled: Boolean?,
+    transcriptEnabled: Boolean?,
+    offlineFormsEnabled: Boolean?,
+    preChatFormEnabled: Boolean?,
+    preChatFormOptions: ReadableArray?,
+    promise: Promise
+  ) {
+    val convertedPreChatFormOptions: MutableMap<String, String> = mutableMapOf()
+    preChatFormOptions?.toArrayList()?.forEach {
+      if (it is Map<*, *>) {
+        val key = it["key"] as String
+        val value = it["value"] as String
+        convertedPreChatFormOptions[key] = value
+      }
+    }
+
+    startChat(
+      botName,
+      multilineResponseOptionsEnabled,
+      agentAvailabilityEnabled,
+      transcriptEnabled,
+      offlineFormsEnabled,
+      preChatFormEnabled,
+      convertedPreChatFormOptions
+    )
+  }
 
   private fun initializeZendesk(appId: String, clientId: String, zendeskUrl: String) {
     Zendesk.INSTANCE.init(context, zendeskUrl, appId, clientId)
@@ -232,7 +284,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     Support.INSTANCE.setHelpCenterLocaleOverride(userLocale)
   }
 
-// Chat functions
+  // Chat functions
   private fun initializeChat(accountKey: String) {
     Chat.INSTANCE.init(context, accountKey)
   }
