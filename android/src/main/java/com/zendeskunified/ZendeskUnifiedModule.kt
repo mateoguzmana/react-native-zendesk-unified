@@ -21,6 +21,8 @@ import zendesk.support.guide.ViewArticleActivity
 import zendesk.support.request.RequestActivity
 import zendesk.support.requestlist.RequestListActivity
 import zendesk.classic.messaging.MessagingActivity
+import zendesk.answerbot.AnswerBotEngine
+import zendesk.answerbot.AnswerBot
 
 class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
@@ -188,9 +190,17 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     )
   }
 
+  @ReactMethod
+  fun startAnswerBot(
+    promise: Promise
+  ) {
+    startAnswerBot()
+  }
+
   private fun initializeZendesk(appId: String, clientId: String, zendeskUrl: String) {
     Zendesk.INSTANCE.init(context, zendeskUrl, appId, clientId)
     Support.INSTANCE.init(Zendesk.INSTANCE)
+    AnswerBot.INSTANCE.init(Zendesk.INSTANCE, Support.INSTANCE);
   }
 
   private fun setAnonymousIdentity(email: String?, name: String?) {
@@ -368,5 +378,17 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
       "hidden" -> PreChatFormFieldStatus.HIDDEN
       else -> PreChatFormFieldStatus.HIDDEN
     }
+  }
+
+  private fun startAnswerBot() {
+    val answerBotEngine = AnswerBotEngine.engine()
+    val messagingConfiguration = MessagingActivity.builder()
+
+    messagingConfiguration.withEngines(answerBotEngine)
+
+    val intent: Intent = messagingConfiguration.intent(context)
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+    context.startActivity(intent)
   }
 }
