@@ -4,6 +4,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.ReadableArray
 import android.content.Intent
 import android.util.Log
 import java.util.Locale
@@ -71,12 +72,29 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     setIdentity(jwt)
   }
 
-// AsyncFunction("setIdentity") { jwt: String -> setIdentity(jwt) }
+  @ReactMethod
+  fun openHelpCenter(
+    labels: ReadableArray,
+    groupType: String?,
+    groupIds: ReadableArray,
+    promise: Promise
+  ) {
+    val convertedLabels: MutableList<String> = mutableListOf()
+    labels.toArrayList().forEach {
+      if (it is String) convertedLabels.add(it)
+    }
 
-// AsyncFunction("openHelpCenter") { labels: List<String>, groupType: String?, groupIds: List<Long>
-//   ->
-//   openHelpCenter(labels, groupType, groupIds)
-// }
+    val convertedGroupIds: MutableList<Long> = mutableListOf()
+    groupIds.toArrayList().forEach {
+      if (it is Long) convertedGroupIds.add(it)
+    }
+
+    openHelpCenter(
+      labels = convertedLabels,
+      groupType,
+      groupIds = convertedGroupIds
+    )
+  }
 
 // AsyncFunction("openTicket") { ticketId: String -> openTicket(ticketId) }
 

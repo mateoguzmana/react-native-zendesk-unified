@@ -32,7 +32,7 @@ function Example() {
 
   const openHelpCenter = async () => {
     try {
-      await zendesk?.openHelpCenter({
+      await zendesk.openHelpCenter({
         labels: ['test'],
         groupType: 'section',
         groupIds: [15138052595485],
