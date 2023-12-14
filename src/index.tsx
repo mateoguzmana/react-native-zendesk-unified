@@ -57,7 +57,6 @@ export class Zendesk {
     await ZendeskUnified.openTicket(ticketId);
   }
 
-  // @TODO: allow passing custom fields
   /**
    * Opens the ticket creation screen.
    */

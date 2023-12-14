@@ -39,14 +39,18 @@ repositories {
 ## Usage
 
 ```tsx
-import { useEffect } from "react";
-import { Button, Text } from "react-native";
-import { useZendesk, ZendeskProvider, ZendeskConfig } from "react-native-zendesk-unified";
+import { useEffect } from 'react';
+import { Button, Text } from 'react-native';
+import {
+  useZendesk,
+  ZendeskProvider,
+  ZendeskConfig,
+} from 'react-native-zendesk-unified';
 
 const zendeskConfig: ZendeskConfig = {
-  appId: "YOUR_ZENDESK_APP_ID",
-  clientId: "YOUR_ZENDESK_CLIENT_ID",
-  zendeskUrl: "YOUR_ZENDESK_URL",
+  appId: 'YOUR_ZENDESK_APP_ID',
+  clientId: 'YOUR_ZENDESK_CLIENT_ID',
+  zendeskUrl: 'YOUR_ZENDESK_URL',
 };
 
 export function App() {
@@ -63,8 +67,8 @@ function MyComponent() {
   const openHelpCenter = async () => {
     try {
       await zendesk.openHelpCenter({
-        labels: ["test"],
-        groupType: "section",
+        labels: ['test'],
+        groupType: 'section',
         groupIds: [15138052595485],
       });
     } catch (error) {
@@ -73,10 +77,10 @@ function MyComponent() {
   };
 
   useEffect(() => {
-    zendesk.changeTheme("#3f2b96");
+    zendesk.changeTheme('#3f2b96');
     zendesk.setAnonymousIdentity({
-      email: "info@mateoguzman.net",
-      name: "Mateo Guzmán",
+      email: 'info@mateoguzman.net',
+      name: 'Mateo Guzmán',
     });
   }, []);
 
@@ -99,14 +103,14 @@ function MyComponent() {
 If you are not using React hooks, or you need to instantiate the `Zendesk` class in a different way (for example in a utility function or another context outside React), you can do so like this:
 
 ```tsx
-import { useEffect } from "react";
-import { Button, Text } from "react-native";
-import { Zendesk, ZendeskConfig } from "react-native-zendesk-unified";
+import { useEffect } from 'react';
+import { Button, Text } from 'react-native';
+import { Zendesk, ZendeskConfig } from 'react-native-zendesk-unified';
 
 const zendeskConfig: ZendeskConfig = {
-  appId: "YOUR_ZENDESK_APP_ID",
-  clientId: "YOUR_ZENDESK_CLIENT_ID",
-  zendeskUrl: "YOUR_ZENDESK_URL",
+  appId: 'YOUR_ZENDESK_APP_ID',
+  clientId: 'YOUR_ZENDESK_CLIENT_ID',
+  zendeskUrl: 'YOUR_ZENDESK_URL',
 };
 const zendesk = new Zendesk(zendeskConfig);
 
@@ -114,8 +118,8 @@ export function App() {
   const openHelpCenter = async () => {
     try {
       await zendesk.openHelpCenter({
-        labels: ["test"],
-        groupType: "section",
+        labels: ['test'],
+        groupType: 'section',
         groupIds: [15138052595485],
       });
     } catch (error) {
@@ -124,10 +128,10 @@ export function App() {
   };
 
   useEffect(() => {
-    zendesk.changeTheme("#3f2b96");
+    zendesk.changeTheme('#3f2b96');
     zendesk.setAnonymousIdentity({
-      email: "info@mateoguzman.net",
-      name: "Mateo Guzmán",
+      email: 'info@mateoguzman.net',
+      name: 'Mateo Guzmán',
     });
   }, []);
 
@@ -172,7 +176,7 @@ Another example is the localization, which can be overridden by setting the loca
 |            | Show the user's tickets                   | ✅  | ✅      |
 |            | Locale Override                           | ✅  | ✅      |
 |            | Show contact options                      | ✅  | ✅      |
-|            | Custom Fields                             | 🛠️  | 🛠️      |
+|            | Custom Fields                             | 🛠️  | ✅      |
 | Chat       | Initialize SDK                            | ✅  | ✅      |
 |            | Start a chat                              | ✅  | ✅      |
 |            | Agent availability Enabled                | ✅  | ✅      |

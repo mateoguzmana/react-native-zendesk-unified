@@ -56,6 +56,9 @@ function Example() {
       await zendesk?.openNewTicket({
         subject: 'Testing subjet passed from app',
         tags: ['test'],
+        customFields: {
+          360029274694: 'Testing custom field passed from app',
+        },
       });
     } catch (error) {
       console.log(error);

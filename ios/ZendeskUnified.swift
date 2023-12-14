@@ -90,7 +90,20 @@ class ZendeskUnified: NSObject {
   ) -> Void {
     let subject = options["subject"] as? String
     let tags = options["tags"] as? [String]
+    let customFields = options["customFields"] as? NSDictionary
 
+    print("openNewTicket called with options: \(options)")
+
+    // var customFieldsArray: [CustomField] = []
+
+    // if let customFields = customFields {
+    //   for (key, value) in customFields {
+    //     let customField = CustomField(fieldId: key as! Int64, value: value as! String)
+    //     customFieldsArray.append(customField)
+    //   }
+    // }
+
+    // openNewTicket(subject: subject, tags: tags, customFields: customFieldsArray)
     openNewTicket(subject: subject, tags: tags)
   }
 
@@ -251,6 +264,7 @@ class ZendeskUnified: NSObject {
   private func openNewTicket(
     subject: String?,
     tags: [String]?
+    // customFields: [CustomField]?
   ) {
     DispatchQueue.main.async {
       let requestConfig = RequestUiConfiguration()
@@ -262,6 +276,10 @@ class ZendeskUnified: NSObject {
       if let subject = subject {
         requestConfig.subject = subject
       }
+
+      // if let customFields = customFields {
+      //   requestConfig.customFields = customFields
+      // }
 
       let requestController = RequestUi.buildRequestUi(with: [requestConfig])
       let navigationController = UINavigationController(rootViewController: requestController)

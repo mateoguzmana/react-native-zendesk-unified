@@ -56,6 +56,11 @@ export interface OpenNewTicketOptions {
    * The tags associated with the ticket.
    */
   tags?: string[];
+  /**
+   * The custom fields to set on the ticket.
+   * The key is the ID of the custom field, and the value is the value to set.
+   */
+  customFields?: Record<number, string>;
 }
 
 export type PreChatFormFieldStatus = 'required' | 'optional' | 'hidden';

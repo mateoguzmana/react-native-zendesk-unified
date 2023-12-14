@@ -17,6 +17,7 @@ import zendesk.core.AnonymousIdentity
 import zendesk.core.JwtIdentity
 import zendesk.core.Zendesk
 import zendesk.support.Support
+import zendesk.support.CustomField
 import zendesk.support.guide.HelpCenterActivity
 import zendesk.support.guide.ViewArticleActivity
 import zendesk.support.request.RequestActivity
@@ -118,13 +119,21 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
   ) {
     val subject = options?.getString("subject")
     val tags = options?.getArray("tags")
+    val customFields = options?.getMap("customFields")
 
     val convertedTags: MutableList<String> = mutableListOf()
     tags?.toArrayList()?.forEach {
       if (it is String) convertedTags.add(it)
     }
 
-    openNewTicket(subject, convertedTags)
+    val convertedCustomFields: MutableList<CustomField> = mutableListOf()
+    customFields?.toHashMap()?.forEach {
+      if (it.value is String) {
+        convertedCustomFields.add(CustomField(it.key.toLong(), it.value as String))
+      }
+    }
+
+    openNewTicket(subject, convertedTags, convertedCustomFields)
   }
 
   @ReactMethod
@@ -264,7 +273,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     context.startActivity(intent)
   }
 
-  private fun openNewTicket(subject: String?, tags: List<String>?) {
+  private fun openNewTicket(subject: String?, tags: List<String>?, customFields: List<CustomField>?) {
     var requestConfig = RequestActivity.builder()
 
     if (subject != null) {
@@ -273,6 +282,10 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
     if (tags != null && tags.isNotEmpty()) {
       requestConfig.withTags(tags)
+    }
+
+    if (customFields != null && customFields.isNotEmpty()) {
+      requestConfig.withCustomFields(customFields)
     }
 
     val intent: Intent = requestConfig.intent(context)
