@@ -26,9 +26,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  openHelpCenter: (NSArray *)labels
-  withGroupType: (NSString *)groupType
-  withGroupIds: (NSArray *)groupIds
+  openHelpCenter: (NSDictionary *)options
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )
@@ -81,7 +79,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  startChat: (NSDictionary *)config
+  startChat: (NSDictionary *)options
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )

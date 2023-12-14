@@ -87,25 +87,17 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun openHelpCenter(
-    labels: ReadableArray,
-    groupType: String?,
-    groupIds: ReadableArray,
+    options: ReadableMap,
     promise: Promise
   ) {
-    val convertedLabels: MutableList<String> = mutableListOf()
-    labels.toArrayList().forEach {
-      if (it is String) convertedLabels.add(it)
-    }
-
-    val convertedGroupIds: MutableList<Long> = mutableListOf()
-    groupIds.toArrayList().forEach {
-      if (it is Long) convertedGroupIds.add(it)
-    }
+    val labels = options.getArray("labels")
+    val groupType = options?.getString("groupType")
+    val groupIds = options?.getArray("groupIds")
 
     openHelpCenter(
-      labels = convertedLabels,
+      labels = labels?.toArrayList() as List<String>,
       groupType,
-      groupIds = convertedGroupIds
+      groupIds = groupIds?.toArrayList() as List<Long>
     )
   }
 

@@ -43,16 +43,11 @@ export class Zendesk {
   }
 
   // @TODO: Disable ticket creation in the help center by passing a flag
-  // @TODO: Pass the whole config as an object instead of individual props
   /**
    * Opens the Zendesk Help Center.
    */
   public async openHelpCenter(options: OpenHelpCenterOptions) {
-    await ZendeskUnified.openHelpCenter(
-      options?.labels,
-      options?.groupType,
-      options?.groupIds
-    );
+    await ZendeskUnified.openHelpCenter(options);
   }
 
   /**

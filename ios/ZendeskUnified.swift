@@ -54,14 +54,16 @@ class ZendeskUnified: NSObject {
     setIdentity(jwt: jwt)
   }
 
-  @objc(openHelpCenter:withGroupType:withGroupIds:withResolver:withRejecter:)
+  @objc(openHelpCenter:withResolver:withRejecter:)
   func openHelpCenter(
-    labels: [String]?,
-    groupType: String?,
-    groupIds: [NSNumber]?,
+    options: NSDictionary,
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
+    let labels = options["labels"] as? [String]
+    let groupType = options["groupType"] as? String
+    let groupIds = options["groupIds"] as? [NSNumber]
+
     openHelpCenter(labels: labels, groupType: groupType, groupIds: groupIds)
   }
 
@@ -121,7 +123,6 @@ class ZendeskUnified: NSObject {
     changeTheme(color: color)
   }
 
-  // Chat methods
   @objc(initializeChat:withResolver:withRejecter:)
   func initializeChat(
     accountKey: String,
@@ -133,17 +134,17 @@ class ZendeskUnified: NSObject {
 
   @objc(startChat:withResolver:withRejecter:)
   func startChat(
-    config: NSDictionary?,
+    options: NSDictionary?,
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
-    let botName = config?["botName"] as? String
-    let multilineResponseOptionsEnabled = config?["multilineResponseOptionsEnabled"] as? Bool
-    let agentAvailabilityEnabled = config?["agentAvailabilityEnabled"] as? Bool
-    let transcriptEnabled = config?["transcriptEnabled"] as? Bool
-    let offlineFormsEnabled = config?["offlineFormsEnabled"] as? Bool
-    let preChatFormEnabled = config?["preChatFormEnabled"] as? Bool
-    let preChatFormOptions = config?["preChatFormOptions"] as? [String?: String?]
+    let botName = options?["botName"] as? String
+    let multilineResponseOptionsEnabled = options?["multilineResponseOptionsEnabled"] as? Bool
+    let agentAvailabilityEnabled = options?["agentAvailabilityEnabled"] as? Bool
+    let transcriptEnabled = options?["transcriptEnabled"] as? Bool
+    let offlineFormsEnabled = options?["offlineFormsEnabled"] as? Bool
+    let preChatFormEnabled = options?["preChatFormEnabled"] as? Bool
+    let preChatFormOptions = options?["preChatFormOptions"] as? [String?: String?]
 
     startChat(
       botName: botName,
@@ -163,8 +164,6 @@ class ZendeskUnified: NSObject {
   ) -> Void {
     startAnswerBot()
   }
-
-  // private methods
 
   private func initializeZendesk(
     appId: String,
@@ -306,8 +305,6 @@ class ZendeskUnified: NSObject {
     return UIColor(red: red, green: green, blue: blue, alpha: alpha)
   }
 
-
-  // Chat functions
   private func initializeChat(accountKey: String) {
     Chat.initialize(accountKey: accountKey)
   }
