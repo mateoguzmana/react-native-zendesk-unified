@@ -1,6 +1,6 @@
 {
   "name": "react-native-zendesk-unified",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "React Native wrapper for the iOS and Android Zendesk SDKs (Chat, Support & Answer Bot)",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
