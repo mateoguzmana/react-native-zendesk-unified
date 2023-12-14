@@ -124,15 +124,19 @@ export class Zendesk {
    * Opens the Zendesk Chat screen.
    */
   public async startChat(options?: StartChatOptions) {
-    await ZendeskUnified.startChat(
-      options?.botName,
-      options?.multilineResponseOptionsEnabled,
-      options?.agentAvailabilityEnabled,
-      options?.transcriptEnabled,
-      options?.offlineFormsEnabled,
-      options?.preChatFormEnabled,
-      options?.preChatFormFieldsStatus
-    );
+    if (Platform.OS === 'ios') {
+      await ZendeskUnified.startChat(
+        options?.botName,
+        options?.multilineResponseOptionsEnabled,
+        options?.agentAvailabilityEnabled,
+        options?.transcriptEnabled,
+        options?.offlineFormsEnabled,
+        options?.preChatFormEnabled,
+        options?.preChatFormFieldsStatus
+      );
+    } else {
+      await ZendeskUnified.startChat(options);
+    }
   }
 
   // @TODO: define answer bot methods properly

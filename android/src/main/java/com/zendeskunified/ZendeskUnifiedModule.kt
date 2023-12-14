@@ -5,6 +5,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import android.content.Intent
 import android.util.Log
 import java.util.Locale
@@ -161,22 +162,20 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun startChat(
-    botName: String?,
-    multilineResponseOptionsEnabled: Boolean?,
-    agentAvailabilityEnabled: Boolean?,
-    transcriptEnabled: Boolean?,
-    offlineFormsEnabled: Boolean?,
-    preChatFormEnabled: Boolean?,
-    preChatFormOptions: ReadableArray?,
+    config: ReadableMap?,
     promise: Promise
   ) {
-    val convertedPreChatFormOptions: MutableMap<String, String> = mutableMapOf()
-    preChatFormOptions?.toArrayList()?.forEach {
-      if (it is Map<*, *>) {
-        val key = it["key"] as String
-        val value = it["value"] as String
-        convertedPreChatFormOptions[key] = value
-      }
+    val botName = config?.getString("botName")
+    val multilineResponseOptionsEnabled = config?.getBoolean("multilineResponseOptionsEnabled")
+    val agentAvailabilityEnabled = config?.getBoolean("agentAvailabilityEnabled")
+    val transcriptEnabled = config?.getBoolean("transcriptEnabled")
+    val offlineFormsEnabled = config?.getBoolean("offlineFormsEnabled")
+    val preChatFormEnabled = config?.getBoolean("preChatFormEnabled")
+    val preChatFormFieldsStatus = config?.getMap("preChatFormFieldsStatus")
+
+    val convertedPreChatFormFieldsStatus: MutableMap<String, String> = mutableMapOf()
+    preChatFormFieldsStatus?.toHashMap()?.forEach {
+      if (it.value is String) convertedPreChatFormFieldsStatus[it.key] = it.value as String
     }
 
     startChat(
@@ -186,7 +185,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
       transcriptEnabled,
       offlineFormsEnabled,
       preChatFormEnabled,
-      convertedPreChatFormOptions
+      convertedPreChatFormFieldsStatus
     )
   }
 
