@@ -185,8 +185,8 @@ Another example is the localization, which can be overridden by setting the loca
 |            | Pre-Chat Form Department Field Status     | ✅  | ✅      |
 |            | Multi-line Response Enabled               | ✅  | ✅      |
 |            | Push Notifications (out of scope for now) | ❌  | ❌      |
-| Answer Bot | Initialize SDK                            | ✅  | 🛠️      |
-|            | Start Answer Bot                          | ✅  | 🛠️      |
+| Answer Bot | Initialize SDK                            | ✅  | ✅      |
+|            | Start Answer Bot                          | ✅  | ✅      |
 | Unified    | Coming up next                            | 🛠️  | 🛠️      |
 
 Any questions about any specific implemention? Feel free to open an issue!

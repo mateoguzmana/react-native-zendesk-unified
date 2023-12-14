@@ -94,6 +94,8 @@ class ZendeskUnified: NSObject {
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
+    print("openArticle called with articleId: \(articleId)")
+
     openArticle(articleId: articleId)
   }
 

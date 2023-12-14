@@ -37,80 +37,52 @@ RCT_EXTERN_METHOD(
   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
-// @objc(openHelpCenter:withGroupType:withGroupIds:withResolver:withRejecter:)
-//   func openHelpCenter(
-//     labels: [String]?,
-//     groupType: String?,
-//     groupIds: [NSNumber]?,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     openHelpCenter(labels: labels, groupType: groupType, groupIds: groupIds)
-//   }
+RCT_EXTERN_METHOD(
+  openTicket: (NSString *)ticketId
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(openTicket:withResolver:withRejecter:)
-//   func openTicket(
-//     ticketId: String,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     openTicket(ticketId: ticketId)
-//   }
+RCT_EXTERN_METHOD(
+  openNewTicket: (NSString *)subject
+  withTags: (NSArray *)tags
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(openNewTicket:withTags:withResolver:withRejecter:)
-//   func openNewTicket(
-//     subject: String?,
-//     tags: [String]?,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     openNewTicket(subject: subject, tags: tags)
-//   }
+RCT_EXTERN_METHOD(
+  listTickets: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(listTickets:withRejecter:)
-//   func listTickets(
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     listTickets()
-//   }
+RCT_EXTERN_METHOD(
+  openTicketList: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(openArticle:withResolver:withRejecter:)
-//   func openArticle(
-//     articleId: String,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     openArticle(articleId: articleId)
-//   }
+RCT_EXTERN_METHOD(
+  openArticle: (NSString *)articleId
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(setHelpCenterLocaleOverride:withResolver:withRejecter:)
-//   func setHelpCenterLocaleOverride(
-//     locale: String,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     setHelpCenterLocaleOverride(locale: locale)
-//   }
+RCT_EXTERN_METHOD(
+  setHelpCenterLocaleOverride: (NSString *)locale
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   @objc(changeTheme:withResolver:withRejecter:)
-//   func changeTheme(
-//     color: String,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     changeTheme(color: color)
-//   }
+RCT_EXTERN_METHOD(
+  changeTheme: (NSString *)color
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
-//   // Chat methods
-//   @objc(initializeChat:withResolver:withRejecter:)
-//   func initializeChat(
-//     accountKey: String,
-//     resolve: RCTPromiseResolveBlock,
-//     reject: RCTPromiseRejectBlock
-//   ) -> Void {
-//     initializeChat(accountKey: accountKey)
-//   }
+RCT_EXTERN_METHOD(
+  initializeChat: (NSString *)accountKey
+  withResolver: (RCTPromiseResolveBlock)resolve
+  withRejecter: (RCTPromiseRejectBlock)reject
+)
 
 + (BOOL)requiresMainQueueSetup
 {
