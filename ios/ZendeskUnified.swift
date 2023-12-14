@@ -76,13 +76,15 @@ class ZendeskUnified: NSObject {
     openTicket(ticketId: ticketId)
   }
 
-  @objc(openNewTicket:withTags:withResolver:withRejecter:)
+  @objc(openNewTicket:withResolver:withRejecter:)
   func openNewTicket(
-    subject: String?,
-    tags: [String]?,
+    options: NSDictionary,
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
+    let subject = options["subject"] as? String
+    let tags = options["tags"] as? [String]
+
     openNewTicket(subject: subject, tags: tags)
   }
 

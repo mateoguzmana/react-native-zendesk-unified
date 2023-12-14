@@ -38,8 +38,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  openNewTicket: (NSString *)subject
-  withTags: (NSArray *)tags
+  openNewTicket: (NSDictionary *)options
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )

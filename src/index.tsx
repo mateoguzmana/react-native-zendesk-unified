@@ -59,12 +59,11 @@ export class Zendesk {
   }
 
   // @TODO: allow passing custom fields
-  // @TODO: Pass the whole config as an object instead of individual props
   /**
    * Opens the ticket creation screen.
    */
   public async openNewTicket(options: OpenNewTicketOptions) {
-    await ZendeskUnified.openNewTicket(options?.subject, options?.tags);
+    await ZendeskUnified.openNewTicket(options);
   }
 
   /**

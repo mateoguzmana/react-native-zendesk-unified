@@ -111,10 +111,12 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun openNewTicket(
-    subject: String?,
-    tags: ReadableArray?,
+    options: ReadableMap?,
     promise: Promise
   ) {
+    val subject = options?.getString("subject")
+    val tags = options?.getArray("tags")
+
     val convertedTags: MutableList<String> = mutableListOf()
     tags?.toArrayList()?.forEach {
       if (it is String) convertedTags.add(it)
