@@ -127,48 +127,24 @@ class ZendeskUnified: NSObject {
     initializeChat(accountKey: accountKey)
   }
 
-  // @objc(startChat:withMultilineResponseOptionsEnabled:withAgentAvailabilityEnabled:withTranscriptEnabled:withOfflineFormsEnabled:withPreChatFormEnabled:withPreChatFormOptions:withResolver:withRejecter:)
-  // func startChat(
-  //   botName: String?,
-  //   multilineResponseOptionsEnabled: Bool?,
-  //   agentAvailabilityEnabled: Bool?,
-  //   transcriptEnabled: Bool?,
-  //   offlineFormsEnabled: Bool?,
-  //   preChatFormEnabled: Bool?,
-  //   resolve: RCTPromiseResolveBlock,
-  //   reject: RCTPromiseRejectBlock
-  // ) -> Void {
-  //   startChat(
-  //     botName: botName,
-  //     multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
-  //     agentAvailabilityEnabled: agentAvailabilityEnabled,
-  //     transcriptEnabled: transcriptEnabled,
-  //     offlineFormsEnabled: offlineFormsEnabled,
-  //     preChatFormEnabled: preChatFormEnabled,
-  //     preChatFormOptions: preChatFormOptions
-  //   )
-  // }
+  @objc(startChat:withResolver:withRejecter:)
+  func startChat(
+    config: NSDictionary?,
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
+    print("startChat called with config: \(config)")
 
-
-  //   AsyncFunction("startChat") { (
-  //     botName: String?,
-  //     multilineResponseOptionsEnabled: Bool?,
-  //     agentAvailabilityEnabled: Bool?,
-  //     transcriptEnabled: Bool?,
-  //     offlineFormsEnabled: Bool?,
-  //     preChatFormEnabled: Bool?,
-  //     preChatFormOptions: [String?: String?]?
-  //   ) in
-  //     startChat(
-  //       botName: botName,
-  //       multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
-  //       agentAvailabilityEnabled: agentAvailabilityEnabled,
-  //       transcriptEnabled: transcriptEnabled,
-  //       offlineFormsEnabled: offlineFormsEnabled,
-  //       preChatFormEnabled: preChatFormEnabled,
-  //       preChatFormOptions: preChatFormOptions
-  //     )
-  //   }
+    // startChat(
+    //   botName: botName,
+    //   multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
+    //   agentAvailabilityEnabled: agentAvailabilityEnabled,
+    //   transcriptEnabled: transcriptEnabled,
+    //   offlineFormsEnabled: offlineFormsEnabled,
+    //   preChatFormEnabled: preChatFormEnabled,
+    //   preChatFormOptions: preChatFormOptions
+    // )
+  }
 
   @objc(startAnswerBot:withRejecter:)
   func startAnswerBot(
