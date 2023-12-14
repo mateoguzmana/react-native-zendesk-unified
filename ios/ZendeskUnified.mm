@@ -14,8 +14,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  setAnonymousIdentity: (NSString *)email
-  withName: (NSString *)name
+  setAnonymousIdentity: (NSDictionary *)options
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )

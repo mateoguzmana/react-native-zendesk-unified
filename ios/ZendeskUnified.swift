@@ -33,13 +33,15 @@ class ZendeskUnified: NSObject {
     }
   }
 
-  @objc(setAnonymousIdentity:withName:withResolver:withRejecter:)
+  @objc(setAnonymousIdentity:withResolver:withRejecter:)
   func setAnonymousIdentity(
-    email: String?,
-    name: String?,
+    options: NSDictionary,
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
+    let email = options["email"] as? String
+    let name = options["name"] as? String
+
     setAnonymousIdentity(email: email, name: name)
   }
 

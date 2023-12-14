@@ -15,23 +15,9 @@ import type {
   ZendeskConfig,
 } from './ZendeskUnified.types';
 
-export function multiply(a: number, b: number): Promise<number> {
-  return ZendeskUnified.multiply(a, b);
-}
-
 export class Zendesk {
   constructor(config: ZendeskConfig) {
-    if (Platform.OS === 'ios') {
-      ZendeskUnified.initialize(config);
-    } else {
-      // @TODO: Pass the whole config as an object instead of individual props
-      ZendeskUnified.initialize(
-        config?.appId,
-        config?.clientId,
-        config?.zendeskUrl,
-        config?.accountKey
-      );
-    }
+    ZendeskUnified.initialize(config);
   }
 
   /**
@@ -45,8 +31,7 @@ export class Zendesk {
    * Sets an anonymous identity for the user using an email and/or name.
    */
   public async setAnonymousIdentity(options: SetAnonymousIdentityOptions) {
-    // @TODO: Pass the whole config as an object instead of individual props
-    await ZendeskUnified.setAnonymousIdentity(options?.email, options?.name);
+    await ZendeskUnified.setAnonymousIdentity(options);
   }
 
   /**

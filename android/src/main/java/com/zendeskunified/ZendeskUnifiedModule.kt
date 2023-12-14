@@ -45,12 +45,20 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun initialize(
-    appId: String,
-    clientId: String,
-    zendeskUrl: String,
-    accountKey: String?,
+    config: ReadableMap,
     promise: Promise
   ) {
+    val appId = config.getString("appId")
+    val clientId = config.getString("clientId")
+    val zendeskUrl = config.getString("zendeskUrl")
+    val accountKey = config.getString("accountKey")
+
+    if (appId == null || clientId == null || zendeskUrl == null) {
+      promise.reject("ZendeskUnified", "Missing required parameters")
+
+      return
+    }
+
     initializeZendesk(appId, clientId, zendeskUrl)
 
     if (accountKey != null) {
@@ -60,10 +68,12 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun setAnonymousIdentity(
-    email: String?,
-    name: String?,
+    options: ReadableMap,
     promise: Promise
   ) {
+    val email = options.getString("email")
+    val name = options.getString("name")
+
     setAnonymousIdentity(email, name)
   }
 
@@ -163,16 +173,16 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun startChat(
-    config: ReadableMap?,
+    options: ReadableMap?,
     promise: Promise
   ) {
-    val botName = config?.getString("botName")
-    val multilineResponseOptionsEnabled = config?.getBoolean("multilineResponseOptionsEnabled")
-    val agentAvailabilityEnabled = config?.getBoolean("agentAvailabilityEnabled")
-    val transcriptEnabled = config?.getBoolean("transcriptEnabled")
-    val offlineFormsEnabled = config?.getBoolean("offlineFormsEnabled")
-    val preChatFormEnabled = config?.getBoolean("preChatFormEnabled")
-    val preChatFormFieldsStatus = config?.getMap("preChatFormFieldsStatus")
+    val botName = options?.getString("botName")
+    val multilineResponseOptionsEnabled = options?.getBoolean("multilineResponseOptionsEnabled")
+    val agentAvailabilityEnabled = options?.getBoolean("agentAvailabilityEnabled")
+    val transcriptEnabled = options?.getBoolean("transcriptEnabled")
+    val offlineFormsEnabled = options?.getBoolean("offlineFormsEnabled")
+    val preChatFormEnabled = options?.getBoolean("preChatFormEnabled")
+    val preChatFormFieldsStatus = options?.getMap("preChatFormFieldsStatus")
 
     val convertedPreChatFormFieldsStatus: MutableMap<String, String> = mutableMapOf()
     preChatFormFieldsStatus?.toHashMap()?.forEach {
