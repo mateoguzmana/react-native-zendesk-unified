@@ -36,6 +36,7 @@ function Example() {
         labels: ['test'],
         groupType: 'section',
         groupIds: [15138052595485],
+        showContactOptions: false,
       });
     } catch (error) {
       console.log(error);

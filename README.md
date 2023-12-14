@@ -171,6 +171,7 @@ Another example is the localization, which can be overridden by setting the loca
 |            | Show an existing ticket                   | ✅  | ✅      |
 |            | Show the user's tickets                   | ✅  | ✅      |
 |            | Locale Override                           | ✅  | ✅      |
+|            | Show contact options                      | ✅  | ✅      |
 |            | Custom Fields                             | 🛠️  | 🛠️      |
 | Chat       | Initialize SDK                            | ✅  | ✅      |
 |            | Start a chat                              | ✅  | ✅      |

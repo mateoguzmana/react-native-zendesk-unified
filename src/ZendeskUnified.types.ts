@@ -41,6 +41,10 @@ export interface OpenHelpCenterOptions {
    * The IDs of the categories or sections to filter by.
    */
   groupIds?: number[];
+  /**
+   * Whether to show the contact options.
+   */
+  showContactOptions?: boolean;
 }
 
 export interface OpenNewTicketOptions {

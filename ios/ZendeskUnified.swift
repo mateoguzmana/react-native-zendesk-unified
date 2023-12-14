@@ -63,8 +63,14 @@ class ZendeskUnified: NSObject {
     let labels = options["labels"] as? [String]
     let groupType = options["groupType"] as? String
     let groupIds = options["groupIds"] as? [NSNumber]
+    let showContactOptions = options["showContactOptions"] as? Bool
 
-    openHelpCenter(labels: labels, groupType: groupType, groupIds: groupIds)
+    openHelpCenter(
+      labels: labels,
+      groupType: groupType,
+      groupIds: groupIds,
+      showContactOptions: showContactOptions
+    )
   }
 
   @objc(openTicket:withResolver:withRejecter:)
@@ -200,7 +206,8 @@ class ZendeskUnified: NSObject {
   private func openHelpCenter(
     labels: [String]?,
     groupType: String?,
-    groupIds: [NSNumber]?
+    groupIds: [NSNumber]?,
+    showContactOptions: Bool?
   ) {
     DispatchQueue.main.async {
       let helpCenterConfig = HelpCenterUiConfiguration()
@@ -221,8 +228,9 @@ class ZendeskUnified: NSObject {
         helpCenterConfig.groupIds = groupIds
       }
 
-      // @TODO: pass this as a config
-      helpCenterConfig.showContactOptions = true
+      if let showContactOptions = showContactOptions {
+        helpCenterConfig.showContactOptions = showContactOptions
+      }
 
       let helpCenterController = HelpCenterUi.buildHelpCenterOverviewUi(withConfigs: [helpCenterConfig])
       let navigationController = UINavigationController(rootViewController: helpCenterController)

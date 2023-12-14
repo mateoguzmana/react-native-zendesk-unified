@@ -93,11 +93,13 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     val labels = options.getArray("labels")
     val groupType = options?.getString("groupType")
     val groupIds = options?.getArray("groupIds")
+    val showContactOptions = options?.getBoolean("showContactOptions")
 
     openHelpCenter(
       labels = labels?.toArrayList() as List<String>,
       groupType,
-      groupIds = groupIds?.toArrayList() as List<Long>
+      groupIds = groupIds?.toArrayList() as List<Long>,
+      showContactOptions
     )
   }
 
@@ -225,7 +227,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     Zendesk.INSTANCE.setIdentity(JwtIdentity(jwt))
   }
 
-  private fun openHelpCenter(labels: List<String>, groupType: String?, groupIds: List<Long>) {
+  private fun openHelpCenter(labels: List<String>, groupType: String?, groupIds: List<Long>, showContactOptions: Boolean?) {
     val helpCenterConfig = HelpCenterActivity.builder()
 
     if (labels.isNotEmpty()) {
@@ -238,6 +240,11 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
       } else if (groupType == "section") {
         helpCenterConfig.withArticlesForSectionIds(groupIds)
       }
+    }
+
+    if (showContactOptions != null) {
+      helpCenterConfig.withContactUsButtonVisible(showContactOptions)
+      helpCenterConfig.withShowConversationsMenuButton(showContactOptions)
     }
 
     val intent: Intent = helpCenterConfig.intent(context)

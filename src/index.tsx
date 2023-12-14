@@ -42,7 +42,6 @@ export class Zendesk {
     await ZendeskUnified.setIdentity(jwt);
   }
 
-  // @TODO: Disable ticket creation in the help center by passing a flag
   /**
    * Opens the Zendesk Help Center.
    */
@@ -114,7 +113,9 @@ export class Zendesk {
     await ZendeskUnified.startChat(options);
   }
 
-  // @TODO: define answer bot methods properly
+  /**
+   * Opens the Zendesk Answer Bot screen.
+   */
   public async startAnswerBot() {
     await ZendeskUnified.startAnswerBot();
   }
