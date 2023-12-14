@@ -133,17 +133,23 @@ class ZendeskUnified: NSObject {
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
-    print("startChat called with config: \(config)")
+    let botName = config?["botName"] as? String
+    let multilineResponseOptionsEnabled = config?["multilineResponseOptionsEnabled"] as? Bool
+    let agentAvailabilityEnabled = config?["agentAvailabilityEnabled"] as? Bool
+    let transcriptEnabled = config?["transcriptEnabled"] as? Bool
+    let offlineFormsEnabled = config?["offlineFormsEnabled"] as? Bool
+    let preChatFormEnabled = config?["preChatFormEnabled"] as? Bool
+    let preChatFormOptions = config?["preChatFormOptions"] as? [String?: String?]
 
-    // startChat(
-    //   botName: botName,
-    //   multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
-    //   agentAvailabilityEnabled: agentAvailabilityEnabled,
-    //   transcriptEnabled: transcriptEnabled,
-    //   offlineFormsEnabled: offlineFormsEnabled,
-    //   preChatFormEnabled: preChatFormEnabled,
-    //   preChatFormOptions: preChatFormOptions
-    // )
+    startChat(
+      botName: botName,
+      multilineResponseOptionsEnabled: multilineResponseOptionsEnabled,
+      agentAvailabilityEnabled: agentAvailabilityEnabled,
+      transcriptEnabled: transcriptEnabled,
+      offlineFormsEnabled: offlineFormsEnabled,
+      preChatFormEnabled: preChatFormEnabled,
+      preChatFormOptions: preChatFormOptions
+    )
   }
 
   @objc(startAnswerBot:withRejecter:)

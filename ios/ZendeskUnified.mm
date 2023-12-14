@@ -107,14 +107,6 @@ RCT_EXTERN_METHOD(
   withRejecter: (RCTPromiseRejectBlock)reject
 )
 
-  // @objc(startAnswerBot:withRejecter:)
-  // func startAnswerBot(
-  //   resolve: RCTPromiseResolveBlock,
-  //   reject: RCTPromiseRejectBlock
-  // ) -> Void {
-  //   startAnswerBot()
-  // }
-
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
