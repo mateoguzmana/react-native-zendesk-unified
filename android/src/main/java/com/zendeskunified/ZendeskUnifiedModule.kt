@@ -130,10 +130,11 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun openArticle(
-    articleId: Long,
+    articleId: Int,
     promise: Promise
   ) {
-    openArticle(articleId)
+    val longArticleId: Long = articleId.toLong()
+    openArticle(longArticleId)
   }
 
   @ReactMethod
@@ -239,9 +240,9 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
     context.startActivity(intent)
-    }
+  }
 
-    private fun openTicket(ticketId: String) {
+  private fun openTicket(ticketId: String) {
     var requestConfig = RequestActivity.builder()
 
     requestConfig.withRequestId(ticketId)
