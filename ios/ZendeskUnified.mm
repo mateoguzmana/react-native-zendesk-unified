@@ -8,10 +8,7 @@ RCT_EXTERN_METHOD(
 )
 
 RCT_EXTERN_METHOD(
-  initialize: (NSString *)appId
-  withClientId: (NSString *)clientId
-  withZendeskUrl: (NSString *)zendeskUrl
-  withAccountKey: (NSString *)accountKey
+  initialize: (NSDictionary *)config
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )
@@ -89,18 +86,6 @@ RCT_EXTERN_METHOD(
   withResolver: (RCTPromiseResolveBlock)resolve
   withRejecter: (RCTPromiseRejectBlock)reject
 )
-
-// RCT_EXTERN_METHOD(
-//   startChat: (NSString *)botName
-//   withMultilineResponseOptionsEnabled: (BOOL *)multilineResponseOptionsEnabled
-//   withAgentAvailabilityEnabled: (BOOL *)agentAvailabilityEnabled
-//   withTranscriptEnabled: (BOOL *)transcriptEnabled
-//   withOfflineFormsEnabled: (BOOL *)offlineFormsEnabled
-//   withPreChatFormEnabled: (BOOL *)preChatFormEnabled
-//   withPreChatFormOptions: (NSDictionary *)preChatFormOptions
-//   withResolver: (RCTPromiseResolveBlock)resolve
-//   withRejecter: (RCTPromiseRejectBlock)reject
-// )
 
 RCT_EXTERN_METHOD(
   startAnswerBot: (RCTPromiseResolveBlock)resolve

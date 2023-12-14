@@ -15,15 +15,17 @@ class ZendeskUnified: NSObject {
     resolve("Module compiling and working")
   }
 
-  @objc(initialize:withClientId:withZendeskUrl:withAccountKey:withResolver:withRejecter:)
+  @objc(initialize:withResolver:withRejecter:)
   func initialize(
-    appId: String, 
-    clientId: String,
-    zendeskUrl: String,
-    accountKey: String?,
+    config: NSDictionary,
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
+    let appId = config["appId"] as! String
+    let clientId = config["clientId"] as! String
+    let zendeskUrl = config["zendeskUrl"] as! String
+    let accountKey = config["accountKey"] as? String
+
     initializeZendesk(appId: appId, clientId: clientId, zendeskUrl: zendeskUrl)
 
     if let accountKey = accountKey {

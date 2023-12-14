@@ -21,12 +21,17 @@ export function multiply(a: number, b: number): Promise<number> {
 
 export class Zendesk {
   constructor(config: ZendeskConfig) {
-    ZendeskUnified.initialize(
-      config?.appId,
-      config?.clientId,
-      config?.zendeskUrl,
-      config?.accountKey
-    );
+    if (Platform.OS === 'ios') {
+      ZendeskUnified.initialize(config);
+    } else {
+      // @TODO: Pass the whole config as an object instead of individual props
+      ZendeskUnified.initialize(
+        config?.appId,
+        config?.clientId,
+        config?.zendeskUrl,
+        config?.accountKey
+      );
+    }
   }
 
   /**
@@ -40,6 +45,7 @@ export class Zendesk {
    * Sets an anonymous identity for the user using an email and/or name.
    */
   public async setAnonymousIdentity(options: SetAnonymousIdentityOptions) {
+    // @TODO: Pass the whole config as an object instead of individual props
     await ZendeskUnified.setAnonymousIdentity(options?.email, options?.name);
   }
 
@@ -52,6 +58,7 @@ export class Zendesk {
   }
 
   // @TODO: Disable ticket creation in the help center by passing a flag
+  // @TODO: Pass the whole config as an object instead of individual props
   /**
    * Opens the Zendesk Help Center.
    */
@@ -72,6 +79,7 @@ export class Zendesk {
   }
 
   // @TODO: allow passing custom fields
+  // @TODO: Pass the whole config as an object instead of individual props
   /**
    * Opens the ticket creation screen.
    */
@@ -124,19 +132,7 @@ export class Zendesk {
    * Opens the Zendesk Chat screen.
    */
   public async startChat(options?: StartChatOptions) {
-    // if (Platform.OS === 'ios') {
-    //   await ZendeskUnified.startChat(
-    //     options?.botName,
-    //     options?.multilineResponseOptionsEnabled,
-    //     options?.agentAvailabilityEnabled,
-    //     options?.transcriptEnabled,
-    //     options?.offlineFormsEnabled,
-    //     options?.preChatFormEnabled,
-    //     options?.preChatFormFieldsStatus
-    //   );
-    // } else {
     await ZendeskUnified.startChat(options);
-    // }
   }
 
   // @TODO: define answer bot methods properly
