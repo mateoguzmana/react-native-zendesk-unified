@@ -44,7 +44,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     try {
       promise.resolve("Module compiling and working")
     } catch (error: Exception) {
-      promise.reject("healthCheck", error)
+      promise.reject("health_check_error", error)
     }
   }
 
@@ -82,7 +82,7 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
       promise.resolve(true)
     } catch (error: Exception) {
-      promise.reject("setAnonymousIdentity", error)
+      promise.reject("set_anonymous_identity_error", error)
     }
   }
 
@@ -91,7 +91,13 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     jwt: String,
     promise: Promise
   ) {
-    setIdentity(jwt)
+    try {
+      setIdentity(jwt)
+
+      promise.resolve(true)
+    } catch (error: Exception) {
+      promise.reject("set_identity_error", error)
+    }
   }
 
   @ReactMethod

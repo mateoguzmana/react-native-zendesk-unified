@@ -21,7 +21,9 @@ export class Zendesk {
   }
 
   /**
-   * Returns whether the Zendesk module is available.
+   * Indicates whether the module is working correctly.
+   * This method is useful for testing the module after initialization.
+   * If the module is not working correctly, an error will be returned.
    */
   public async healthCheck(): Promise<string> {
     return ZendeskUnified.healthCheck();
@@ -40,8 +42,8 @@ export class Zendesk {
    * Sets the identity of the user using a JWT.
    * @param jwt The JWT to use for the identity.
    */
-  public async setIdentity(jwt: string) {
-    await ZendeskUnified.setIdentity(jwt);
+  public async setIdentity(jwt: string): Promise<boolean> {
+    return ZendeskUnified.setIdentity(jwt);
   }
 
   /**

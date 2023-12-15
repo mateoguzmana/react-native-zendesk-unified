@@ -11,7 +11,10 @@ import MessagingSDK
 @objc(ZendeskUnified)
 class ZendeskUnified: NSObject {
   @objc(healthCheck:withRejecter:)
-  func healthCheck(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
+  func healthCheck(
+    resolve: RCTPromiseResolveBlock,
+    reject: RCTPromiseRejectBlock
+  ) -> Void {
     resolve("Module compiling and working")
   }
 
@@ -39,10 +42,14 @@ class ZendeskUnified: NSObject {
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
-    let email = options["email"] as? String
-    let name = options["name"] as? String
+    do {
+      let email = options["email"] as? String
+      let name = options["name"] as? String
 
-    setAnonymousIdentity(email: email, name: name)
+      try setAnonymousIdentity(email: email, name: name)
+    } catch {
+      reject("set_anonymous_identity_error", "Error setting anonymous identity", error)
+    }
   }
 
   @objc(setIdentity:withResolver:withRejecter:)
@@ -51,7 +58,13 @@ class ZendeskUnified: NSObject {
     resolve: RCTPromiseResolveBlock,
     reject: RCTPromiseRejectBlock
   ) -> Void {
-    setIdentity(jwt: jwt)
+    do {
+      try setIdentity(jwt: jwt)
+
+      resolve(true)
+    } catch {
+      reject("set_identity_error", "Error setting identity", error)
+    }
   }
 
   @objc(openHelpCenter:withResolver:withRejecter:)
@@ -157,7 +170,7 @@ class ZendeskUnified: NSObject {
   func startChat(
     options: NSDictionary?,
     resolve: RCTPromiseResolveBlock,
-    reject: RCTPromiseRejectBlock
+    reject: @escaping RCTPromiseRejectBlock
   ) -> Void {
     let botName = options?["botName"] as? String
     let multilineResponseOptionsEnabled = options?["multilineResponseOptionsEnabled"] as? Bool
@@ -174,16 +187,17 @@ class ZendeskUnified: NSObject {
       transcriptEnabled: transcriptEnabled,
       offlineFormsEnabled: offlineFormsEnabled,
       preChatFormEnabled: preChatFormEnabled,
-      preChatFormOptions: preChatFormOptions
+      preChatFormOptions: preChatFormOptions,
+      reject: reject
     )
   }
 
   @objc(startAnswerBot:withRejecter:)
   func startAnswerBot(
     resolve: RCTPromiseResolveBlock,
-    reject: RCTPromiseRejectBlock
+    reject: @escaping RCTPromiseRejectBlock
   ) -> Void {
-    startAnswerBot()
+    startAnswerBot(reject: reject)
   }
 
   private func initializeZendesk(
@@ -344,7 +358,8 @@ class ZendeskUnified: NSObject {
     transcriptEnabled: Bool?,
     offlineFormsEnabled: Bool?,
     preChatFormEnabled: Bool?,
-    preChatFormOptions: [String?: String?]?
+    preChatFormOptions: [String?: String?]?,
+    reject: @escaping RCTPromiseRejectBlock
   ) {
     DispatchQueue.main.async {
       do {
@@ -405,7 +420,7 @@ class ZendeskUnified: NSObject {
 
         UIApplication.shared.keyWindow?.rootViewController?.present(navigationController, animated: true, completion: nil)
       } catch {
-        print("Error initializing ChatEngine")
+        reject("start_chat_error", "Error initializing ChatEngine", error)
       }
     }
   }
@@ -423,7 +438,9 @@ class ZendeskUnified: NSObject {
     }
   }
 
-  private func startAnswerBot() {
+  private func startAnswerBot(
+    reject: @escaping RCTPromiseRejectBlock
+  ) {
     DispatchQueue.main.async {
       do {
         let answerBotEngine = try AnswerBotEngine.engine()
@@ -437,7 +454,7 @@ class ZendeskUnified: NSObject {
 
         UIApplication.shared.keyWindow?.rootViewController?.present(navigationController, animated: true, completion: nil)
       } catch {
-        print("Error initializing AnswerBotEngine")
+        reject("answer_bot_error", "Error initializing AnswerBotEngine", error)
       }
     }
   }  
