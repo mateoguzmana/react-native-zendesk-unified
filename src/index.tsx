@@ -23,15 +23,17 @@ export class Zendesk {
   /**
    * Returns whether the Zendesk module is available.
    */
-  public healthCheck(): string {
+  public async healthCheck(): Promise<string> {
     return ZendeskUnified.healthCheck();
   }
 
   /**
    * Sets an anonymous identity for the user using an email and/or name.
    */
-  public async setAnonymousIdentity(options: SetAnonymousIdentityOptions) {
-    await ZendeskUnified.setAnonymousIdentity(options);
+  public async setAnonymousIdentity(
+    options: SetAnonymousIdentityOptions
+  ): Promise<boolean> {
+    return ZendeskUnified.setAnonymousIdentity(options);
   }
 
   /**

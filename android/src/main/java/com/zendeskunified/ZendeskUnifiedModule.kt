@@ -41,7 +41,11 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun healthCheck(promise: Promise) {
-    promise.resolve("Module compiling and working")
+    try {
+      promise.resolve("Module compiling and working")
+    } catch (error: Exception) {
+      promise.reject("healthCheck", error)
+    }
   }
 
   @ReactMethod
@@ -55,8 +59,6 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     val accountKey = config.getString("accountKey")
 
     if (appId == null || clientId == null || zendeskUrl == null) {
-      promise.reject("ZendeskUnified", "Missing required parameters")
-
       return
     }
 
@@ -72,10 +74,16 @@ class ZendeskUnifiedModule(reactContext: ReactApplicationContext) :
     options: ReadableMap,
     promise: Promise
   ) {
-    val email = options.getString("email")
-    val name = options.getString("name")
+    try {
+      val email = options.getString("email")
+      val name = options.getString("name")
 
-    setAnonymousIdentity(email, name)
+      setAnonymousIdentity(email, name)
+
+      promise.resolve(true)
+    } catch (error: Exception) {
+      promise.reject("setAnonymousIdentity", error)
+    }
   }
 
   @ReactMethod

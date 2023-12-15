@@ -22,11 +22,13 @@ function Example() {
 
   const loadHealthCheck = useCallback(async () => {
     try {
-      const healthCheckResult = await zendesk?.healthCheck();
+      const healthCheckResult = await zendesk.healthCheck();
 
       setHealthCheck(healthCheckResult);
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        setHealthCheck(error.message);
+      }
     }
   }, [zendesk]);
 
@@ -113,13 +115,17 @@ function Example() {
   useEffect(() => {
     loadHealthCheck();
 
-    zendesk?.changeTheme('#3f2b96');
-    zendesk?.setAnonymousIdentity({
-      email: 'testing6@mail.com',
-      name: 'Mateo Guzmán',
-    });
-    zendesk?.setHelpCenterLocaleOverride('nl');
-    // zendesk.setIdentity("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
+    try {
+      zendesk.changeTheme('#3f2b96');
+      zendesk.setAnonymousIdentity({
+        email: 'testing6@mail.com',
+        name: 'Mateo Guzmán',
+      });
+      zendesk.setHelpCenterLocaleOverride('nl');
+      // zendesk.setIdentity("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9");
+    } catch (error) {
+      console.log(error);
+    }
   }, [loadHealthCheck, zendesk]);
 
   return (
