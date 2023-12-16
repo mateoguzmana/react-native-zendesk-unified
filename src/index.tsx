@@ -111,6 +111,7 @@ export class Zendesk {
 
   /**
    * Opens the Zendesk Chat screen.
+   * @param options The {@link StartChatOptions} to use to start the chat.
    */
   public async startChat(options?: StartChatOptions) {
     await ZendeskUnified.startChat(options);

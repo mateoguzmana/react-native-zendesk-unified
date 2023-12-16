@@ -1,0 +1,6 @@
+{
+    "entryPoints": ["src/index.tsx"],
+    "out": "docs",
+    "plugin": ["typedoc-material-theme"],
+    "themeColor": "#17494c"
+  }
