@@ -1,14 +1,8 @@
-## Library Under Construction – Do Not Use Yet 🚧
-
-I'm currently working on this library, even though it is already working, it's not yet fully usable as there will be breaking changes coming soon. If you want to help, feel free to open a PR! Testing the alpha version is also very welcome.
-
-See the [Supported Zendesk SDKs and Methods](#supported-zendesk-sdks-and-methods) section for more information of what is currently supported and what is coming soon.
-
-It is part of my journey to learn how to create native modules for React Native. So it might take a while to get it to a stable state (or maybe I'll never get there, who knows 🤷‍♂️).
-
 # react-native-zendesk-unified
 
 React Native wrapper for the iOS and Android Zendesk SDKs (Chat, Support & Answer Bot)
+
+See the [Supported Zendesk SDKs and Methods](#supported-zendesk-sdks-and-methods) section for more information of what is currently supported and what is coming soon.
 
 ## Installation
 
